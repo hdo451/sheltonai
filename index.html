@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Your AI profile</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <aside class="side-panel">
+      <div class="brand"><div class="logo-crop"><img src="logo.png" alt="Shelton Academy"></div><span>AI profile</span></div>
+      <div class="side-copy">
+        <p class="eyebrow">A conversation starter</p>
+        <h2>Make your next AI conversation useful.</h2>
+        <p>Your answers help shape a practical, personal conversation about teaching and technology.</p>
+      </div>
+      <div class="side-footer"><span class="status-dot"></span><span>Private · about 5 minutes</span></div>
+    </aside>
+    <section class="survey-panel" aria-live="polite">
+      <header class="survey-header">
+        <div class="progress-meta"><span id="stage-label">About you</span><span id="progress-count">1 / 5</span></div>
+        <div class="progress-track"><div id="progress-bar" class="progress-bar"></div></div>
+      </header>
+      <div id="intro-view" class="intro-view">
+        <p class="eyebrow">Before we meet</p>
+        <h1>Your<br><em>AI profile.</em></h1>
+        <p class="intro-text">I’ll be meeting individually with every teacher over the next few weeks. Tell me a little about how you use AI, what you’ve explored, and what you’d like to learn next.</p>
+        <p class="no-test"><span>✦</span> No right or wrong answers. This is not an assessment.</p>
+        <button id="start-button" class="primary-button">Let’s start <span>→</span></button>
+      </div>
+      <form id="survey-form" class="question-view" hidden></form>
+      <div id="success-view" class="success-view" hidden>
+        <p class="eyebrow">Profile complete</p>
+        <h1>Thank<br><em>you.</em></h1>
+        <p class="intro-text">This isn’t a test. Your profile is ready and will help make our conversation more useful for you.</p>
+        <a class="booking-button" href="https://calendar.app.google/JBcJNiRzsG9N4qS39" target="_blank" rel="noopener">Pick a time to meet <span>↗</span></a>
+        <p id="submit-status" class="submit-status" role="status"></p>
+      </div>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
