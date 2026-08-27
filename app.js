@@ -37,7 +37,10 @@ function renderQuestion() {
   void form.offsetWidth;
   form.classList.add("question-view");
   document.querySelector("#back")?.addEventListener("click", () => { saveAnswer(); current -= 1; renderQuestion(); });
-  form.querySelectorAll("input[name=answer]").forEach((input) => input.addEventListener("change", () => updateCustomField(question)));
+  form.querySelectorAll("input[name=answer]").forEach((input) => input.addEventListener("change", () => {
+    updateCustomField(question);
+    updatePaidState(question);
+  }));
   form.querySelectorAll("input[name=paid]").forEach((input) => input.addEventListener("change", () => updatePaidState(question)));
   updateCustomField(question);
   updatePaidState(question);
@@ -53,8 +56,9 @@ function controlFor(question) {
 
 function updatePaidState(question) {
   if (question.type !== "multiPaid") return;
-  form.querySelectorAll("input[name=paid]").forEach((paidInput) => {
-    const used = [...form.querySelectorAll("input[name=answer]:checked")].some((input) => input.value === paidInput.value);
+  form.querySelectorAll(".assistant-option").forEach((option) => {
+    const used = option.querySelector("input[name=answer]").checked;
+    const paidInput = option.querySelector("input[name=paid]");
     paidInput.disabled = !used;
     if (!used) paidInput.checked = false;
   });
