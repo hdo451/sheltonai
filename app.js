@@ -32,7 +32,7 @@ function renderQuestion() {
   document.querySelector("#stage-label").textContent = question.stage;
   document.querySelector("#progress-count").textContent = `${stageIndex + 1} / ${stages.length}`;
   document.querySelector("#progress-bar").style.width = `${((stageIndex + 1) / stages.length) * 100}%`;
-  form.innerHTML = `<div class="question-number">${String(current + 1).padStart(2, "0")}</div><h1 class="question-title">${question.title}</h1>${question.help ? `<p class="question-help">${question.help}</p>` : ""}${controlFor(question)}<p id="error" class="error" role="alert"></p><div class="actions">${current ? '<button type="button" class="back-button" id="back">← Back</button>' : '<span></span>'}<button class="primary-button" type="submit">${current === questions.length - 1 ? "Finish profile" : "Continue"} <span>→</span></button></div>`;
+  form.innerHTML = `<div class="question-number">${String(current + 1).padStart(2, "0")}</div><h1 class="question-title">${question.title}</h1>${question.help ? `<p class="question-help${question.max ? " max-selection" : ""}">${question.help}</p>` : ""}${controlFor(question)}<p id="error" class="error" role="alert"></p><div class="actions">${current ? '<button type="button" class="back-button" id="back">← Back</button>' : '<span></span>'}<button class="primary-button" type="submit">${current === questions.length - 1 ? "Finish profile" : "Continue"} <span>→</span></button></div>`;
   form.classList.remove("question-view");
   void form.offsetWidth;
   form.classList.add("question-view");
