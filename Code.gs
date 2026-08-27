@@ -2,6 +2,7 @@ const SHEET_NAME = "Responses";
 const REPORT_RECIPIENT = "h.carvallo@sheltonacademyschools.net";
 const REPORT_FOLDER_ID = "16j0zmpUz280MJzooZGGxFVryzpzbeyXM";
 const REPORT_LOGO_FILE_ID = "1HLoTxyyQCD4Aasdfzc_9S0gu9SUdNza5";
+const CALENDAR_URL = "https://calendar.app.google/JBcJNiRzsG9N4qS39";
 const MAKE_REPORT_PUBLIC = true;
 const SEND_REPORT_TO_TEACHER = true;
 const REPORT_HEADERS = ["Submitted At", "Name", "Email", "Teaching / Role", "Subjects / Roles", "Years in Education", "AI Frequency", "Current AI Uses", "AI Assistants", "Paid AI Assistants", "Other AI Tools", "AI Perspective", "Useful AI Goals", "Other Tool", "Other Goal", "What They Wish To Learn", "Time-Saving Opportunity", "Report PDF"];
@@ -63,7 +64,7 @@ function createReport(data) {
   const folder = DriveApp.getFolderById(REPORT_FOLDER_ID);
   const name = data.name || "Teacher";
   const safeName = name.replace(/[^a-z0-9 -]/gi, "").trim() || "Teacher";
-  const html = reportHtml(data);
+  const html = reportHtml(data).replace("</footer>", ` <a href="${escapeHtml(CALENDAR_URL)}">Schedule a conversation</a></footer>`);
   const pdf = folder.createFile(Utilities.newBlob(html, MimeType.HTML, `${safeName} - AI Profile.html`).getAs(MimeType.PDF));
   pdf.setName(`${safeName} - AI Profile.pdf`);
   if (MAKE_REPORT_PUBLIC) pdf.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
@@ -85,6 +86,6 @@ function sendReport(data, reportUrl) {
   const body = `A new AI profile has been completed by ${name}.\n\nDownload the one-page report: ${reportUrl}\n\nThe response has also been saved in the Responses sheet.`;
   MailApp.sendEmail({ to: REPORT_RECIPIENT, subject: `AI profile: ${name}`, body: body });
   if (SEND_REPORT_TO_TEACHER && data.email && data.email !== REPORT_RECIPIENT) {
-    MailApp.sendEmail({ to: data.email, subject: "Your teacher AI profile report", body: `Hello ${name},\n\nYour one-page AI profile report is ready:\n${reportUrl}\n\nThank you for completing the profile.` });
+    MailApp.sendEmail({ to: data.email, subject: "Your teacher AI profile report", body: `Hello ${name},\n\nYour one-page AI profile report is ready:\n${reportUrl}\n\nSchedule a conversation on the calendar:\n${CALENDAR_URL}\n\nThank you for completing the profile.` });
   }
 }
